@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del Examen{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ exam.title }}</h2>
+    <p><strong>Fecha de creación:</strong> {{ exam.created_date }}</p>
+    <p><strong>Descripción:</strong> {{ exam.description }}</p>
+
+    <h3>Preguntas:</h3>
+    <div>
+        {% for question in questions %}
+            <div class="question">
+                <h4>{{ question.text }}</h4>
+                <ul>
+                    {% for choice in question.choices.all %}
+                        <li>{{ choice.text }} {% if choice.is_correct %} (Correcta) {% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% empty %}
+            <p>No hay preguntas en este examen.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
